@@ -5,6 +5,11 @@ on init
 	declare $y
 	declare %black[5] := (1, 3, 6, 8, 10)
 	
+	declare $cent_range
+	$cent_range := 99
+	declare $cent_default
+	$cent_default := -50
+	
 	declare ui_switch $C
 	declare ui_switch $Db
 	declare ui_switch $D
@@ -18,110 +23,89 @@ on init
 	declare ui_switch $Bb
 	declare ui_switch $B
 	
-	declare ui_value_edit $I(-50000, 50000, 1000)
-	declare ui_value_edit $II(-50000, 50000, 1000)
-	declare ui_value_edit $III(-50000, 50000, 1000)
-	declare ui_value_edit $IV(-50000, 50000, 1000)
-	declare ui_value_edit $V(-50000, 50000, 1000)
-	declare ui_value_edit $VI(-50000, 50000, 1000)
-	declare ui_value_edit $VII(-50000, 50000, 1000)
-	declare ui_value_edit $VIII(-50000, 50000, 1000)
-	declare ui_value_edit $IX(-50000, 50000, 1000)
-	declare ui_value_edit $X(-50000, 50000, 1000)
-	declare ui_value_edit $XI(-50000, 50000, 1000)
-	declare ui_value_edit $XII(-50000, 50000, 1000)
-	
-	set_text($I, "Do")
-	set_text($II, "Re b")
-	set_text($III, "Re")
-	set_text($IV, "Mi b")
-	set_text($V, "Mi")
-	set_text($VI, "Fa")
-	set_text($VII, "Sol b")
-	set_text($VIII, "Sol")
-	set_text($IX, "La b")
-	set_text($X, "La")
-	set_text($XI, "Si b")
-	set_text($XII, "Si")
-	
-	declare ui_menu $preset_menu
-	add_menu_item($preset_menu, " ", 99)
-	add_menu_item($preset_menu, "Natural", 1)
-	add_menu_item($preset_menu, "_____", 99)
-	add_menu_item($preset_menu, "Rast", 4)
-	add_menu_item($preset_menu, "Huzam", 5)
-	add_menu_item($preset_menu, "Hijaz", 6)
-	add_menu_item($preset_menu, "Nayruz", 7)
-	add_menu_item($preset_menu, "Bayat", 8)
+	declare ui_value_edit $I(-$cent_range, $cent_range, 1)
+	declare ui_value_edit $II(-$cent_range, $cent_range, 1)
+	declare ui_value_edit $III(-$cent_range, $cent_range, 1)
+	declare ui_value_edit $IV(-$cent_range, $cent_range, 1)
+	declare ui_value_edit $V(-$cent_range, $cent_range, 1)
+	declare ui_value_edit $VI(-$cent_range, $cent_range, 1)
+	declare ui_value_edit $VII(-$cent_range, $cent_range, 1)
+	declare ui_value_edit $VIII(-$cent_range, $cent_range, 1)
+	declare ui_value_edit $IX(-$cent_range, $cent_range, 1)
+	declare ui_value_edit $X(-$cent_range, $cent_range, 1)
+	declare ui_value_edit $XI(-$cent_range, $cent_range, 1)
+	declare ui_value_edit $XII(-$cent_range, $cent_range, 1)
 	
 	declare $set_start
-	$set_start := 220
+	$set_start := 40
 	
 	declare $inter_button_space
 	$inter_button_space := 12
+	declare $inter_button_space2
+	$inter_button_space2 := 18
 	
 	$y := 0
 	while ($y < 12)
 		declare $current_switch
 		$current_switch := get_ui_id($C) + $y
 		
+		declare $current_switch2
+		$current_switch2 := get_ui_id($I) + $y
+		
 		declare $current_pos_x
+		declare $current_pos_x2
 		declare $current_pos_y
 		
 		if (search(%black, $y mod 12) # -1)
-			$current_pos_y := 48
+			$current_pos_y := 8
 			
 			if ($y > 5)
 				$current_pos_x := $set_start + 20 + ($inter_button_space * $y)
+				$current_pos_x2 := $set_start + 20 + ($inter_button_space2 * $y)
 			else
 			 $current_pos_x := $set_start + ($inter_button_space * $y)
+			 $current_pos_x2 := $set_start + ($inter_button_space2 * $y)
 			end if
 		else
-			$current_pos_y := 68
+			$current_pos_y := 28
 			
 			if ($y > 4)
 				$current_pos_x := $set_start + 20 + ($inter_button_space * $y)
+				$current_pos_x2 := $set_start + 20 + ($inter_button_space2 * $y)
 			else
 				$current_pos_x := $set_start + ($inter_button_space * $y)
+				$current_pos_x2 := $set_start + ($inter_button_space2 * $y)
 			end if
 		end if
 		
 		set_control_par($current_switch, $CONTROL_PAR_POS_X, $current_pos_x)
 		set_control_par($current_switch, $CONTROL_PAR_POS_Y, $current_pos_y)
-		set_control_par($current_switch, $CONTROL_PAR_WIDTH, 13)
-		set_control_par($current_switch, $CONTROL_PAR_HEIGHT, 13)
+		set_control_par($current_switch, $CONTROL_PAR_WIDTH, 17)
+		set_control_par($current_switch, $CONTROL_PAR_HEIGHT, 17)
 		set_control_par($current_switch, $CONTROL_PAR_TEXT_ALIGNMENT, 1)
+		set_control_par_str($current_switch, $CONTROL_PAR_TEXT, "")
+		
+		set_control_par($current_switch2, $CONTROL_PAR_POS_X, $current_pos_x2 + 300)
+		set_control_par($current_switch2, $CONTROL_PAR_POS_Y, $current_pos_y)
+		set_control_par($current_switch2, $CONTROL_PAR_WIDTH, 30)
+		set_control_par($current_switch2, $CONTROL_PAR_SHOW_ARROWS, 0)
+		set_control_par_str($current_switch2, $CONTROL_PAR_TEXT, "")
 		
 		inc($y)
 	end while
 	
-	$I := 0
-	$II := 0
-	$III := 0
-	$IV := 0
-	$V := 0
-	$VI := 0
-	$VII := 0
-	$VIII := 0
-	$IX := 0
-	$X := 0
-	$XI := 0
-	$XII := 0
-	
-	move_control ($I, 5, 1)
-	move_control ($II, 5, 2)
-	move_control ($III, 5, 3)
-	move_control ($IV, 5, 4)
-	move_control ($V, 5, 5)
-	move_control ($VI, 5, 6)
-	move_control ($VII, 6, 1)
-	move_control ($VIII, 6, 2)
-	move_control ($IX, 6, 3)
-	move_control ($X, 6, 4)
-	move_control ($XI, 6, 5)
-	move_control ($XII, 6, 6)
-	
-	move_control ($preset_menu, 1, 3)
+	$I := $cent_default
+	$II := $cent_default
+	$III := $cent_default
+	$IV := $cent_default
+	$V := $cent_default
+	$VI := $cent_default
+	$VII := $cent_default
+	$VIII := $cent_default
+	$IX := $cent_default
+	$X := $cent_default
+	$XI := $cent_default
+	$XII := $cent_default
 	
 	make_persistent($C)
 	make_persistent($Db)
@@ -148,49 +132,10 @@ on init
 	make_persistent($X)
 	make_persistent($XI)
 	make_persistent($XII)
-	
-	make_persistent($preset_menu)
-end on
-
-on ui_control ($preset_menu)
-	if ($preset_menu < 99)
-		{reset everything}
-		$y := 0
-		while ($y < 12)
-			set_control_par(get_ui_id($I) + $y, $CONTROL_PAR_VALUE, 0)
-			set_control_par(get_ui_id($C) + $y, $CONTROL_PAR_VALUE, 0)
-			inc($y)
-		end while
-		
-		{then set the scale}
-		select($preset_menu)
-			case 4 {Rast}
-				set_control_par(get_ui_id($C) + 4, $CONTROL_PAR_VALUE, 1)
-				set_control_par(get_ui_id($I) + 4, $CONTROL_PAR_VALUE, -50000)
-				set_control_par(get_ui_id($C) + 11, $CONTROL_PAR_VALUE, 1)
-				set_control_par(get_ui_id($I) + 11, $CONTROL_PAR_VALUE, -50000)
-			case 5 {Huzam}
-				set_control_par(get_ui_id($C), $CONTROL_PAR_VALUE, 1)
-				set_control_par(get_ui_id($I), $CONTROL_PAR_VALUE, -50000)
-			case 6 {Hijaz}
-				set_control_par(get_ui_id($C) + 9, $CONTROL_PAR_VALUE, 1)
-				set_control_par(get_ui_id($I) + 9, $CONTROL_PAR_VALUE, -50000)
-			case 7 {Nayruz}
-				set_control_par(get_ui_id($C) + 4, $CONTROL_PAR_VALUE, 1)
-				set_control_par(get_ui_id($I) + 4, $CONTROL_PAR_VALUE, -50000)
-				set_control_par(get_ui_id($C) + 9, $CONTROL_PAR_VALUE, 1)
-				set_control_par(get_ui_id($I) + 9, $CONTROL_PAR_VALUE, -50000)
-			case 8 {Bayat}
-				set_control_par(get_ui_id($C) + 2, $CONTROL_PAR_VALUE, 1)
-				set_control_par(get_ui_id($I) + 2, $CONTROL_PAR_VALUE, -50000)
-				set_control_par(get_ui_id($C) + 9, $CONTROL_PAR_VALUE, 1)
-				set_control_par(get_ui_id($I) + 9, $CONTROL_PAR_VALUE, -50000)
-		end select
-	end if
 end on
 
 on note
 	if (get_control_par(get_ui_id($C) + $EVENT_NOTE mod 12, $CONTROL_PAR_VALUE) = 1 and get_control_par(get_ui_id($I) + $EVENT_NOTE mod 12, $CONTROL_PAR_VALUE) # 0)
-		change_tune($EVENT_ID, get_control_par(get_ui_id($I) + $EVENT_NOTE mod 12, $CONTROL_PAR_VALUE), 0)
+		change_tune($EVENT_ID, get_control_par(get_ui_id($I) + $EVENT_NOTE mod 12, $CONTROL_PAR_VALUE) * 1000, 0)
 	end if
 end on
