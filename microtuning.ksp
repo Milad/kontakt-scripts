@@ -36,6 +36,15 @@ on init
 	declare ui_value_edit $XI(-$cent_range, $cent_range, 1)
 	declare ui_value_edit $XII(-$cent_range, $cent_range, 1)
 	
+	declare ui_switch $reset_button
+	
+	set_control_par(get_ui_id($reset_button), $CONTROL_PAR_POS_X, 250)
+	set_control_par(get_ui_id($reset_button), $CONTROL_PAR_POS_Y, 8)
+	set_control_par(get_ui_id($reset_button), $CONTROL_PAR_WIDTH, 50)
+	set_control_par(get_ui_id($reset_button), $CONTROL_PAR_HEIGHT, 17)
+	set_control_par(get_ui_id($reset_button), $CONTROL_PAR_TEXT_ALIGNMENT, 1)
+	set_control_par_str(get_ui_id($reset_button), $CONTROL_PAR_TEXT, "Reset")
+	
 	declare $set_start
 	$set_start := 40
 	
@@ -94,18 +103,12 @@ on init
 		inc($y)
 	end while
 	
-	$I := $cent_default
-	$II := $cent_default
-	$III := $cent_default
-	$IV := $cent_default
-	$V := $cent_default
-	$VI := $cent_default
-	$VII := $cent_default
-	$VIII := $cent_default
-	$IX := $cent_default
-	$X := $cent_default
-	$XI := $cent_default
-	$XII := $cent_default
+	$y := 0
+	while ($y < 12)
+		set_control_par(get_ui_id($I) + $y, $CONTROL_PAR_VALUE, $cent_default)
+		
+		inc($y)
+	end while
 	
 	make_persistent($C)
 	make_persistent($Db)
@@ -132,6 +135,16 @@ on init
 	make_persistent($X)
 	make_persistent($XI)
 	make_persistent($XII)
+end on
+
+on ui_control ($reset_button)
+	$reset_button := 0
+	
+	$y := 0
+	while ($y < 12)
+		set_control_par(get_ui_id($I) + $y, $CONTROL_PAR_VALUE, $cent_default)
+		inc($y)
+	end while
 end on
 
 on note
